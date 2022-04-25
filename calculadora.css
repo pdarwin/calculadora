@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100,300,400");
+
+html {
+  box-sizing: border-box;
+}
+
+/* * = Universal Selector */
+* {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  background: url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.calculator {
+  position: relative;
+  background-color: #2b343aee;
+  margin: 100px auto;
+  width: 440px;
+  min-height: 619px;
+  border: 2px solid #657173;
+  border-radius: 8px;
+  box-shadow: 20px 20px 15px rgba(10, 16, 22, 0.35);
+  opacity: 0.9;
+}
+
+.top-icons {
+  position: relative;
+  padding: 15px 15px;
+}
+
+.top-icons > a {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 60px;
+  text-decoration: none;
+  outline: none;
+}
+.top-icons > a.red {
+  background-color: #fc554d;
+}
+
+.top-icons > a.yellow {
+  background-color: #fec12e;
+}
+
+.top-icons > a.green {
+  background-color: #28c941;
+}
+
+.display {
+  font-family: "Montserrat Thin", Arial, sans-serif;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 5rem;
+  color: white;
+  text-align: right;
+  line-height: 80px;
+}
+
+.buttons {
+  margin-top: 40px;
+}
+.buttons > .row {
+  margin-top: 3px;
+  position: relative;
+}
+
+.buttons button {
+  transition: all 0.2s ease-in;
+  float: left;
+  font-family: "Montserrat Light", Arial, sans-serif;
+  outline: none;
+  background-color: #717478;
+  border: 1px solid #2b343aee;
+  font-size: 2.4rem;
+  width: 109px;
+  padding: 6px;
+  line-height: 40px;
+  height: 88px;
+  max-height: 88px;
+  text-align: center;
+  color: white;
+}
+
+.buttons button.xl {
+  width: 218px;
+}
+
+.buttons > .row:first-child > button {
+  background-color: #504b57;
+}
+
+.buttons > .row > button:last-child {
+  background-color: #fa9e2a;
+}
+
+.buttons > .row:last-child > button:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+.buttons > .row:last-child > button:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+.buttons button:hover {
+  background-color: #858688;
+  cursor: pointer;
+}
+
+.buttons > .row:first-child > button:hover {
+  background-color: #7b797c;
+}
+
+.buttons > .row > button:last-child:hover {
+  background-color: #f7bf7a;
+}
+
+.disabled {
+  pointer-events: none;
+}
