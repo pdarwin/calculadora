@@ -22,34 +22,43 @@ function handleButtonClick(value) {
 }
 
 function handleNumber(value) {
-  console.log(value, buffer, textBuffer, bufferLoaded);
   //Se não existe buffer
   if (!bufferLoaded) {
     lastKey === "," ? (buffer = value / 10) : (buffer = value);
     bufferLoaded = true;
     //Se existir textBuffer
-    if (parseFloat(textBuffer)) {
-      //Se o valor for igual a zero
+    if (parseFloat(textBuffer.toString().replace(",", "."))) {
+      //Acrescenta o valor
       textBuffer += value;
     } else {
+      //caso contrário, não existindo buffer, se for decimal, concatena o 0 e a ","
       lastKey === "," ? (textBuffer = "0," + value) : (textBuffer = value);
     }
   } else {
     //Não decimal
     if (lastKey !== ",") {
       //Se o textBuffer for diferente de zero e a lastkey não for "="
-      if (parseFloat(textBuffer) && lastKey !== "=" && lastKey !== ",") {
+      if (
+        parseFloat(textBuffer.toString().replace(",", ".")) &&
+        lastKey !== "=" &&
+        lastKey !== ","
+      ) {
         //concatena o valor
         textBuffer += value;
         buffer += value;
       } else {
         //Atribui o valor
-        textBuffer = value;
-        buffer = value;
+        if (textBuffer === "0,0") {
+          textBuffer += value;
+          buffer = "0.0" + value;
+        } else {
+          textBuffer = value;
+          buffer = value;
+        }
       }
     } else {
       //Tratamento do decimal
-      textBuffer += "," + value;
+      textBuffer += value;
       buffer = parseFloat((buffer + value) / 10).toFixed(1);
     }
   }
@@ -72,7 +81,6 @@ function handleSymbol(value) {
       previousOperator = null;
 
       buffer = +runningTotal;
-      console.log(buffer);
       if (buffer === Infinity) {
         textBuffer = "Not a number";
         bufferLoaded = false;
@@ -99,18 +107,28 @@ function handleSymbol(value) {
 }
 
 function handleDecimal() {
-  //verifica se o textBuffer já contem o separador decimal na string
-  if (!textBuffer.toString().includes(",")) {
-    switch (lastKey) {
-      case "÷":
-      case "x":
-      case "+":
-      case "–":
-        textBuffer += "0,";
-        break;
-      default:
-        break;
+  //Se a última tecla não foi um "="
+  if (lastKey !== "=") {
+    //verifica se o número em buffer é inteiro
+    if (!(parseFloat(buffer) - Math.floor(parseFloat(buffer)))) {
+      switch (lastKey) {
+        case "÷":
+        case "x":
+        case "+":
+        case "–":
+          textBuffer += "0,";
+          break;
+        default:
+          textBuffer += ",";
+          break;
+      }
     }
+  } else {
+    //quando a última tecla foi um "="
+    textBuffer = "0,";
+    buffer = 0;
+    bufferLoaded = false;
+    runningTotal = 0;
   }
 }
 
