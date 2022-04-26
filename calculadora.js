@@ -26,12 +26,12 @@ function handleNumber(value) {
   if (!bufferLoaded) {
     lastKey === "," ? (buffer = value / 10) : (buffer = value);
     bufferLoaded = true;
-    //Se existir textBuffer
-    if (parseFloat(textBuffer.toString().replace(",", "."))) {
+    //Se existir textBuffer e não for a mensagem de erro
+    if (textBuffer !== "0" && textBuffer !== "Not a number") {
       //Acrescenta o valor
       textBuffer += value;
     } else {
-      //caso contrário, não existindo buffer, se for decimal, concatena o 0 e a ","
+      //caso contrário, não existindo textBuffer, se for decimal, concatena o 0 e a ","
       lastKey === "," ? (textBuffer = "0," + value) : (textBuffer = value);
     }
   } else {
@@ -81,7 +81,8 @@ function handleSymbol(value) {
       previousOperator = null;
 
       buffer = +runningTotal;
-      if (buffer === Infinity) {
+
+      if (buffer === Infinity || isNaN(buffer)) {
         textBuffer = "Not a number";
         bufferLoaded = false;
         buffer = 0;
