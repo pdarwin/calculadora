@@ -12,7 +12,7 @@ const screen = document.querySelector(".display");
 
 function handleButtonClick(value) {
   //Não é um número -> handleSymbol
-  if (isNaN(parseInt(value))) {
+  if (isNaN(+value)) {
     handleSymbol(value);
   } else {
     //É um número -> handleNumber
